@@ -1,21 +1,21 @@
 """Setuptools command sub-classes."""
 
-from setuptools import Command
-from setuptools.command import develop as _develop
-from setuptools.command import install as _install
-from setuptools.command import install as _install
-
 import os
 import inspect
 
-from os.path import expanduser, abspath, dirname, join, exists, islink
+from os.path import expanduser, abspath, dirname, join, exists
+
+from setuptools import Command
+from setuptools.command import develop as _develop
+from setuptools.command import install as _install
 
 from cheshire3.exceptions import ConfigFileException
-from cheshire3.internal import cheshire3Home, cheshire3Root
+from cheshire3.internal import cheshire3Root
 from cheshire3.server import SimpleServer
 from cheshire3.session import Session
 
-from diggingintodata.setup.exceptions import * 
+from diggingintodata.setup.exceptions import DevelopException, InstallException
+from diggingintodata.setup.exceptions import UninstallException
 
 
 class unavailable_command(Command):
@@ -87,10 +87,12 @@ class develop(_develop.develop, DIDCommand):
         elif exists(os.path.join(userSpecificPath, pluginPath)):
             os.remove(os.path.join(userSpecificPath, pluginPath))
         else:
-            server.log_error(session, "No database plugin file")
+            msg = "No database plugin file"
+            server.log_error(session, msg)
+            raise DevelopException(msg)
 
 
-class install(_install.install):
+class install(_install.install, DIDCommand):
     
     description = "Install diggingintodata"
     
@@ -132,7 +134,9 @@ class uninstall(DIDCommand):
         elif exists(os.path.join(userSpecificPath, pluginPath)):
             os.remove(os.path.join(userSpecificPath, pluginPath))
         else:
-            server.log_error(session, "No database plugin file")
+            msg = "No database plugin file"
+            server.log_error(session, msg)
+            raise UninstallException(msg)
 
 
 # Inspect to find current path
