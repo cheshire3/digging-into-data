@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns="http://www.cheshire3.org/schemas/config/"
+		type="database"
+		id="db_jstor">
+
+  <objectType>cheshire3.database.SimpleDatabase</objectType>
+    
+  <options>
+      <setting type="srw">1</setting>
+  </options>
+  
+  <paths>
+    <path type="defaultPath">~/digging-into-data/dbs/jstor</path>
+    <path type="metadataPath">stores/metadata.bdb</path>
+    <path type="indexStoreList">indexStore</path>
+  </paths>
+  
+  <subConfigs>
+  
+    <!-- indexStore -->
+    <subConfig type="indexStore" id="indexStore">
+        <objectType>cheshire3.indexStore.BdbIndexStore</objectType>
+        <paths>
+            <path type="defaultPath">indexes</path>
+            <path type="tempPath">temp</path>
+            <path type="recordStoreHash">recordStore</path>  
+        </paths>
+    </subConfig>
+  
+  </subConfigs>
+  
+</config>
