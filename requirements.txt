@@ -1,0 +1,1 @@
+-e git://github.com/cheshire3/cheshire3.git@develop#egg=cheshire3
