@@ -49,7 +49,7 @@ Requirements / Dependencies
 ---------------------------
 
 Cheshire3 for Archives requires a working installation of Cheshire3, with the 
-additional grid and testmining features installed.
+additional grid and textmining features installed.
 
 
 Licensing
